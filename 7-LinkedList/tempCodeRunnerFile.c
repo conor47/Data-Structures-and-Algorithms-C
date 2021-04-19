@@ -1,3 +1,1 @@
-
-    // int A[] = {3,5,7,10,15};
-    // Create(A, 5);
+RemoveDuplicate(first);
