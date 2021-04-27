@@ -14,12 +14,18 @@ char Pop ();
 void Push(char x);
 void Display();
 int isBalanced (char *exp);
+int Pre(char x);
+int isOperand (char x);
+char * InToPost (char *infix);
 
 
 int main (){
 
-    char *exp = "((a+b)*(c-d))";
-    printf("%d \n", isBalanced(exp));
+    char *infix = "a+b*c-d/e";
+    Push('#');
+
+    char *postfix = InToPost(infix);
+    printf("%s", postfix);
     return 0;
 }
 
@@ -94,3 +100,54 @@ else {
     return 0;
 }
 }
+
+int Pre(char x){
+
+    if (x=='+' || x=='-'){
+        return 1;
+    }
+    else if (x =='*' || x =='/'){
+        return 2;
+    }
+    return 0;
+}
+
+int isOperand (char x){
+
+    if ( x=='+' || x=='-' || x=='*' || x=='/'){
+        return 0;
+    }
+    return 1;
+}
+
+char * InToPost (char *infix){
+
+    int i=0, j=0;
+    char *postfix;
+    int len = strlen(infix);
+    postfix = (char *) malloc ((len+2) * sizeof(char));
+
+    while (infix[i] != '\0'){
+
+        if (isOperand(infix[i])){
+            postfix[j++] = infix [i++];
+        }
+
+        else {
+
+            if(Pre(infix[i]) > Pre(top->data)){
+                Push(infix[i++]);
+            }
+            else {
+                postfix[j++] = Pop();
+            }
+        }
+    }
+
+    while (top != NULL){
+        postfix[j++] = Pop();
+    }
+    postfix[j] ='\0';
+    return postfix;
+}
+
