@@ -116,14 +116,64 @@ void IInorder(struct Node *p){
     }
 }
 
+void LevelOrder (struct Node *root){
+
+    struct Queue q;
+    Create(&q,100);
+
+    printf("%d ", root->data);
+    Enqueue(&q, root);
+
+    while ( ! isEmpty(q)){
+
+        root=Dequeue(&q);
+        
+        if(root->lchild){
+            printf("%d ", root->lchild->data);
+            Enqueue(&q, root->lchild);
+        }
+
+        if(root->rchild){
+            printf("%d ", root->rchild->data);
+            Enqueue(&q, root->rchild);
+        }
+    }
+}
+
+int Count (struct Node *root){
+
+    if(root != NULL){
+
+        return(Count(root->lchild)+ Count(root->rchild) + 1);
+    }
+    return 0;
+}
+
+int Height(struct Node *root){
+
+    int x=0,y=0;
+    if (root == 0){
+        return 0;
+    }
+    x=Height(root->lchild);
+    y=Height(root->rchild);
+    if(x > y){
+        return x+1;
+    }
+    else{
+        return y+1;
+    }
+}
+
+
 int main (){
 
     Treecreate();
 
-    printf("Pre Order is : \n");
-    IInorder(root);
-
+    printf("Count %d \n", Count(root));
+    printf("Height %d \n", Height(root));
     return 0;
 }
+
 
 
