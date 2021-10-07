@@ -1,3 +1,3 @@
 # Data-Structures-and-Algorithms-C
 
-Implementations of some common data structures in C
+Implementations of some of the most common data structures and algorithms in C
